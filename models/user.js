@@ -1,9 +1,5 @@
 const {Schema, Types} = require('mongoose');
-// username reqs-
-// String
-// Inique
-// Required
-// Trimmed
+
 const userSchema = new Schema(
     { 
         userID: {
@@ -15,25 +11,32 @@ const userSchema = new Schema(
             unique: true,
             required: true, 
         },
+        // username reqs-
+        // String
+        // Inique
+        // Required
+        // Trimmed
         email: {
             type: String,
             unique: true,
             // Research Validation
+            // email
+            // String
+            // Unique
+            // Cross refences the email for validation 'matching validation'
         },
         friends: [friendsSchema],
+        // friends array
+        //  references the user model
+        // 
+        // 
+        // 
 
-// email
-// String
-// Unique
-// Cross refences the email for validation 'matching validation'
+        // Create virtual that can ref friend count and retrive the length of friends in query
 
-// thoughts array
-// Array id references the thought model
 
-// friends array
-//  references the user model
-
-// Create virtual that can ref friend count and retrive the length of friends in query
+        // thoughts array
+        // Array id references the thought model
     },
     {
         toJSON: {

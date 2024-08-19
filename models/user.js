@@ -1,11 +1,8 @@
-const {Schema, Types} = require('mongoose');
+const {Schema, model} = require('mongoose');
+const { thoughts } = require('.');
 
 const userSchema = new Schema(
     { 
-        userID: {
-            type: Schema.Types.ObjectId,
-            default: () => new Types.ObjectId(),
-        },
         userName: {
             type: String.trim(),
             unique: true,
@@ -25,7 +22,12 @@ const userSchema = new Schema(
             // Unique
             // Cross refences the email for validation 'matching validation'
         },
-        friends: [friendsSchema],
+        thoughts: {
+
+        },
+        friends: {
+
+        },
         // friends array
         //  references the user model
         // 
@@ -38,11 +40,8 @@ const userSchema = new Schema(
         // thoughts array
         // Array id references the thought model
     },
-    {
-        toJSON: {
-            getters: true,
-        },
-    }
 );
 
 const user = model('user', userSchema);
+
+module.exports = user;

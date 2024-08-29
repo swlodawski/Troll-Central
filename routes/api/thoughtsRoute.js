@@ -1,15 +1,14 @@
-// THOUGHTS REOUTES
+const router = require('express').Router();
+const {
+    getThoughts,
+    getSingleThoughts,
+    createThoughts,
+    deleteThoughts,
+    addReaction,
+    removeReaction
+} = require('../../controllers');
 
-// GET ALL THOUGHTS
+router.route('/').get(getThoughts).post(createThoughts);
 
-// GET THOUGHTS BY ITS ID
+router.route('/:thoughtId').get(getSingleThoughts).delete(deleteThoughts).put(updateThought);
 
-// POST TO CREATE A NEW THOUGHT ASSOCIATE THOUGHT WITH ITS USER
-
-// PUT TO UPDATE THOUGHT BY ITS ID
-
-// DELETE TO REMOVE THOUGHT BY ITS ID
-
-// POST TO CREATE REACTION STORED IN SINGLE THOUGHTS ARRAY
-
-// DELETE TO PULL AND REMOVE REACTION FROM THOUGHTS ARRAY BY REACTIONID

@@ -1,47 +1,28 @@
 const {Schema, model} = require('mongoose');
-const { thoughts } = require('.');
 
 const userSchema = new Schema(
-    { 
-        userName: {
-            type: String.trim(),
+    {
+        username: {
+            type:String,
             unique: true,
-            required: true, 
+            required: true,
+            max_length: 10,
         },
-        // username reqs-
-        // String
-        // Inique
-        // Required
-        // Trimmed
-        email: {
-            type: String,
-            unique: true,
-            // Research Validation
-            // email
-            // String
-            // Unique
-            // Cross refences the email for validation 'matching validation'
-        },
-        thoughts: {
 
-        },
-        friends: {
-
-        },
-        // friends array
-        //  references the user model
-        // 
-        // 
-        // 
-
-        // Create virtual that can ref friend count and retrive the length of friends in query
-
-
-        // thoughts array
-        // Array id references the thought model
+    email: {
+        type: String,
+        required: true,
+        unique: true,
     },
+    thoughts: {
+
+    },
+    friends: {
+
+    }
+}
 );
 
-const user = model('user', userSchema);
+const User = model('user', userSchema);
 
-module.exports = user;
+module.exports = User;

@@ -1,34 +1,28 @@
 const {Schema, Types} = require('mongoose');
+const { reaction } = require('.');
 
 const reactionSchema = new Schema(
     { 
-        reactionID: {
-            type: Schema.Types.ObjectId,
-            default: () => new Types.ObjectId(),
+       reactionBody: {
+        type: String,
+        required: true,
+        max_length: 200
+       },
+       username: {
+        type: String,
+        required: true
+       },
+       createdAt: {
+        type: Date,
+        default: Date.now
+       }
+    },
+    {
+        toJSON: {
+            getters: true,
         },
-        // REACTION SCHEMA
-        // reactionid
-        // Mongoose objectdata type and def new object id
-
-        reactionBody: {
-
-        },
-        // reaction body
-        // String
-        // Required
-        // 280 char min
+        id: false
     }
-)
+);
 
-
-
-
-
-// username
-// String
-// Required
-
-
-// createdAt
-// Set default timestamp value to now
-// use getter method to format timestamp on query
+module.exports = reactionSchema;

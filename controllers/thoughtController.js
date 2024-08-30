@@ -50,5 +50,25 @@ module.exports = {
         }
     },
 
-    
+    async deleteThought(req, req) {
+        try {
+            const thought = await Thought.findOneAndDelete({_id: req.params.thoughtId});
+
+            if(!thought) {
+                res.status(404).json({message: 'This thought does not exist'});
+            }
+
+            const dbThought = await User.findOneAndDelete(
+                {thoughts: req.params.thoughtId},
+                {$pull: { thoughts: req.params.thoughtId}},
+                {new: true}
+            );
+
+            if(!dbThought) {
+                res.status(404).json({message: 'Thought Deleted'});
+            }
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
 }

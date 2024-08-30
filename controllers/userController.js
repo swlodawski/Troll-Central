@@ -1,7 +1,4 @@
-const { json } = require('express');
 const {User, Thought} = require('../models');
-const { create } = require('../models/Thoughts');
-const { updateMany } = require('../models/User');
 
 module.exports = {
     async getUsers(req, res) {
@@ -82,5 +79,18 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-
-}
+    async removeFriend(req, res) {
+        try {
+            const user = await User.findOneAndUpdate(
+                {_id: req.params.userId},
+                {$pull: { friends: req.params.friendId}},
+                {runValidators: true, new: true}
+            );
+            if(!user){
+            res.json(404).json({message: 'User does not exist'});
+        } res.json(user)
+        } catch(err) {
+            res.status(500).json(err);
+        }
+    },
+};

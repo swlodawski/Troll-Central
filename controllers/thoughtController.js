@@ -1,8 +1,6 @@
 const {ObjectId} = require('mongoose').Types;
 const {json} = require('express');
 const {Thought, User} = require('../models');
-const { get } = require('../models/Reaction');
-const { updateOne } = require('../models/User');
 
 const headCount = async() => {
     const numberOfThoughts = await Thought.aggregate()

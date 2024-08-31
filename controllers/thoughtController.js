@@ -2,6 +2,7 @@ const {ObjectId} = require('mongoose').Types;
 const {json} = require('express');
 const {Thought, User} = require('../models');
 const { get } = require('../models/Reaction');
+const { updateOne } = require('../models/User');
 
 const headCount = async() => {
     const numberOfThoughts = await Thought.aggregate()
@@ -71,4 +72,20 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+
+    async updateThought(req, res) {
+        try {
+            const thought = await Thought.findOneAndDelete({_id: req.params.thoughtId}, {
+                $set: req.body
+            });
+
+            if(!thought) {
+                res.status(404).json({message: 'Thought doe not exist'});
+            }
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+
+    
 }

@@ -86,6 +86,35 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    async addThought(req, res) {
+        try {
+            const thought = await Thought.findOneAndDelete(
+                {_id: req.params.thoughtId},
+                {$addToSet: {reactions: req.body}},
+                {runValidators: true, next: true}
+            );
+            if(!thought) {
+                res.status(404).json({message: 'Thought does not exist'});
+                res.json(thought);
+            }
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
 
-    
-}
+    async removeReaction(req, res) {
+        try {
+            const thought = await Thought.findOneAndUpdate(
+                {_id: req.body.thoughtId },
+                {$pull: {reaction: {_id: req.params.reactionId}}},
+                {runValidators: true, new: true}
+            );
+            if(!thought) {
+                res.status(404).json({message: 'Thought does not exist.'});
+            } res.json(thought);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+
+};
